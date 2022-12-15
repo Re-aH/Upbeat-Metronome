@@ -61,9 +61,9 @@ const pressPlay = function () {
 
         Tone.context.resume().then(() => {
             Tone.Transport.start();
-            console.log(Tone.context.state);
+            // console.log(Tone.context.state);
         })
-        checkAudContextInterval
+        // checkAudContextInterval
     } else {
         playStopBtn.className = 'play';
         dot.classList.remove('animation');
@@ -126,7 +126,7 @@ const syncClick = function () {
 
             Tone.Transport.start();
 
-            checkAudContextInterval
+            // checkAudContextInterval
             dot.classList.add('animation');
             document.querySelector('.bigC').classList.add('animCircle');
             document.querySelector('.whiteCdn').classList.add('animWhite');
@@ -191,31 +191,62 @@ tempoDownBtn.addEventListener('touchend', clearTempoDown);
 //     }
 // }, 1000);
 
-var checkAudContextInterval = setInterval(function () {
+// var checkAudContextInterval = setInterval(function () {
 
-    if (typeof Tone.context.state !== 'undefined') {
-        Tone.context.onstatechange = function () {
-            // console.log(Tone.getAudioContext().state);
-            if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
-                Tone.context.resume();
-            }
+//     if (typeof Tone.context.state !== 'undefined') {
+//         Tone.context.onstatechange = function () {
+//             // console.log(Tone.getAudioContext().state);
+//             if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
+//                 Tone.context.resume();
+//             }
 
-        };
+//         };
 
-        clearInterval(checkAudContextInterval);
-    }
-}, 1000);
+//         clearInterval(checkAudContextInterval);
+//     }
+// }, 1000);
 
 
 //trying to playsound while app in background
 
-document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) {
-        setTimeout(() => {
-            Tone.context.suspend();
-            setTimeout(() => {
-                Tone.context.resume();
-            }, 75);
-        }, 75);
-    }
-}, false);
+// document.addEventListener("visibilitychange", () => {
+//     if (!document.hidden) {
+//         setTimeout(() => {
+//             Tone.context.suspend();
+//             setTimeout(() => {
+//                 Tone.context.resume();
+//             }, 75);
+//         }, 75);
+//     }
+// }, false);
+
+
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+// https://stackoverflow.com/questions/9709891/prevent-ios-mobile-safari-from-going-idle-auto-locking-sleeping/71316630#71316630
+// create silent sound
+let bufferSize = 2 * ctx.sampleRate,
+    emptyBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate),
+    output = emptyBuffer.getChannelData(0);
+
+// fill buffer
+for (let i = 0; i < bufferSize; i++)
+    output[i] = 0;
+
+// create source node
+let source = ctx.createBufferSource();
+source.buffer = emptyBuffer;
+source.loop = true;
+
+// create destination node
+let node = ctx.createMediaStreamDestination();
+source.connect(node);
+
+// dummy audio element
+let audio = document.createElement("audio");
+audio.style.display = "none";
+document.body.appendChild(audio);
+
+// set source and play
+audio.srcObject = node.stream;
+audio.play();
