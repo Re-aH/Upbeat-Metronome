@@ -49,10 +49,9 @@
 body {
   background-color: rgb(188, 235, 241);
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  touch-action: manipulation;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 p {
@@ -141,35 +140,35 @@ div {
 
 .animCircle {
   -webkit-animation-name: circleLight;
-  animation-name: circleLight;
+          animation-name: circleLight;
   -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
+          animation-duration: 0.5s;
   -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 
 .animation {
   -webkit-animation-name: bounce;
-  animation-name: bounce;
+          animation-name: bounce;
   -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
+          animation-duration: 0.5s;
   -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
   -webkit-animation-direction: alternate;
-  animation-direction: alternate;
+          animation-direction: alternate;
 }
 
 .animWhite {
   -webkit-animation-name: whiteLight;
-  animation-name: whiteLight;
+          animation-name: whiteLight;
   -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
+          animation-duration: 0.5s;
   -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 
 .controls {
-  position: absolute;
+  position: fixed;
   bottom: 15px;
   height: 15vh;
   display: block;
@@ -177,11 +176,11 @@ div {
 }
 .controls .tempo-display {
   display: inline-block;
-  position: absolute;
+  position: fixed;
   font-family: Arial, Helvetica, sans-serif;
   width: 105px;
-  bottom: 15px;
-  font-size: 4rem;
+  bottom: 35px;
+  font-size: 4.5rem;
   text-align: right;
   color: rgb(0, 0, 0);
 }
@@ -195,20 +194,21 @@ div {
 }
 
 .tempo-btn {
-  position: absolute;
+  position: fixed;
   display: inline-block;
   font-family: "Courier New", Courier, monospace;
   height: 35px;
   width: 40px;
-  font-weight: 800;
-  font-size: 2.4rem;
+  font-weight: 550;
+  font-size: 3.6rem;
   color: rgb(0, 0, 0);
   background-color: rgb(188, 235, 241);
   border: none;
-  left: 106px;
+  left: 130px;
   text-align: center;
   vertical-align: middle;
-  line-height: 30px;
+  line-height: 3px;
+  padding-bottom: 4px;
 }
 
 .play {
@@ -229,4 +229,4 @@ div {
   bottom: 43px;
   width: 0px;
   height: 0px;
-} /*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

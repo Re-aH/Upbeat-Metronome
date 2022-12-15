@@ -142,7 +142,7 @@ div {
 }
 
 .controls {
-  position: absolute;
+  position: fixed;
   bottom: 15px;
   height: 15vh;
   display: block;
@@ -153,11 +153,11 @@ div {
 
   .tempo-display {
     display: inline-block;
-    position: absolute;
+    position: fixed;
     font-family: Arial, Helvetica, sans-serif;
     width: 105px;
-    bottom: 15px;
-    font-size: 4rem;
+    bottom: 35px;
+    font-size: 4.5rem;
     // margin-left: px;
     // margin-right: 10px;
     text-align: right;
@@ -173,20 +173,21 @@ div {
   bottom: 19px;
 }
 .tempo-btn {
-  position: absolute;
+  position: fixed;
   display: inline-block;
   font-family: "Courier New", Courier, monospace;
   height: 35px;
   width: 40px;
-  font-weight: 800;
-  font-size: 2.4rem;
+  font-weight: 550;
+  font-size: 3.6rem;
   color: $textColor;
   background-color: $backGroundColor;
   border: none;
-  left: 106px;
+  left: 130px;
   text-align: center;
   vertical-align: middle;
-  line-height: 30px;
+  line-height: 3px;
+  padding-bottom: 4px;
 }
 
 .play {
