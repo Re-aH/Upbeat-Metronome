@@ -48,6 +48,7 @@ function animateUpbeat() {
 
 const pressPlay = function () {
     // toggle Play / Stop
+    audio.play();
     let secBpm2 = 60000 / bpm / 2
     if (playStopBtn.className === 'play') {
         playStopBtn.className = 'stop';
@@ -61,7 +62,7 @@ const pressPlay = function () {
 
         Tone.context.resume().then(() => {
             Tone.Transport.start();
-            // console.log(Tone.context.state);
+            console.log(Tone.context.state);
         })
         // checkAudContextInterval
     } else {
@@ -209,19 +210,20 @@ tempoDownBtn.addEventListener('touchend', clearTempoDown);
 
 //trying to playsound while app in background
 
-// document.addEventListener("visibilitychange", () => {
-//     if (!document.hidden) {
-//         setTimeout(() => {
-//             Tone.context.suspend();
-//             setTimeout(() => {
-//                 Tone.context.resume();
-//             }, 75);
-//         }, 75);
-//     }
-// }, false);
+document.addEventListener("visibilitychange", () => {
+    console.log(Tone.context.state, "visability change");
+    if (!document.hidden) {
+        setTimeout(() => {
+            Tone.context.suspend();
+            setTimeout(() => {
+                Tone.context.resume();
+            }, 75);
+        }, 75);
+    }
+}, false);
 
 
-const ctx = new (window.AudioContext || window.webkitAudioContext)();
+const ctx = Tone.context
 
 // https://stackoverflow.com/questions/9709891/prevent-ios-mobile-safari-from-going-idle-auto-locking-sleeping/71316630#71316630
 // create silent sound
@@ -249,4 +251,3 @@ document.body.appendChild(audio);
 
 // set source and play
 audio.srcObject = node.stream;
-audio.play();
