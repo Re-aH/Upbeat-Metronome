@@ -61,6 +61,7 @@ const pressPlay = function () {
 
         Tone.context.resume().then(() => {
             Tone.Transport.start();
+            console.log(Tone.context.state);
         })
         checkAudContextInterval
     } else {
@@ -175,14 +176,46 @@ tempoDownBtn.addEventListener('touchend', clearTempoDown);
 
 // console.log(Tone.context._context);
 
+// var checkAudContextInterval = setInterval(function () {
+
+//     if (typeof Tone.getAudioContext !== 'undefined') {
+//         Tone.getAudioContext().onstatechange = function () {
+//             console.log(Tone.getAudioContext().state);
+//             if (Tone.getAudioContext().state === 'suspended' || Tone.getAudioContext().state === 'interrupted') {
+//                 Tone.getAudioContext().resume();
+//             }
+
+//         };
+
+//         clearInterval(checkAudContextInterval);
+//     }
+// }, 1000);
+
 var checkAudContextInterval = setInterval(function () {
-    if (typeof getAudioContext !== 'undefined') {
-        getAudioContext().onstatechange = function () {
-            // console.log(getAudioContext().state);
-            if (getAudioContext().state === 'suspended' || getAudioContext().state === 'interrupted') {
-                getAudioContext().resume();
+
+    if (typeof Tone.context.state !== 'undefined') {
+        Tone.context.onstatechange = function () {
+            // console.log(Tone.getAudioContext().state);
+            if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
+                Tone.context.resume();
             }
+
         };
+
         clearInterval(checkAudContextInterval);
     }
 }, 1000);
+
+
+//trying to playsound while app in background
+
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+        setTimeout(() => {
+            Tone.context.suspend();
+            setTimeout(() => {
+                Tone.context.resume();
+            }, 75);
+        }, 75);
+    }
+}, false);
