@@ -191,33 +191,32 @@ tempoDownBtn.addEventListener('touchend', clearTempoDown);
 //     }
 // }, 1000);
 
-// var checkAudContextInterval = setInterval(function () {
-
-//     if (typeof Tone.context.state !== 'undefined') {
-//         Tone.context.onstatechange = function () {
-//             // console.log(Tone.getAudioContext().state);
-//             if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
-//                 Tone.context.resume();
-//             }
-
-//         };
-
-//         clearInterval(checkAudContextInterval);
-//     }
-// }, 1000);
 
 
-//trying to playsound while app in background
+// https://stackoverflow.com/questions/9709891/prevent-ios-mobile-safari-from-going-idle-auto-locking-sleeping/71316630#71316630
+// create silent sound
+let bufferSize = 2 * Tone.context.sampleRate,
+    emptyBuffer = Tone.context.createBuffer(1, bufferSize, Tone.context.sampleRate),
+    output = emptyBuffer.getChannelData(0);
 
-document.addEventListener("visibilitychange", () => {
-    console.log(Tone.context.state, "visability change");
-    if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
-        setTimeout(() => {
-            Tone.context.suspend();
-            setTimeout(() => {
-                Tone.context.resume();
-            }, 75);
-        }, 75);
-    }
-}, false);
+// fill buffer
+for (let i = 0; i < bufferSize; i++)
+    output[i] = 0;
 
+// create source node
+let source = Tone.context.createBufferSource();
+source.buffer = emptyBuffer;
+source.loop = true;
+
+// create destination node
+let node = Tone.context.createMediaStreamDestination();
+source.connect(node);
+
+// dummy audio element
+let audio = document.createElement("audio");
+audio.style.display = "none";
+document.body.appendChild(audio);
+
+// set source and play
+audio.srcObject = node.stream;
+audio.play();
