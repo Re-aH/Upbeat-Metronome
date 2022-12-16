@@ -58,11 +58,12 @@ const pressPlay = function () {
         // not sure if it is a good idea...
         // setTimeout(animateUpbeat, secBpm2)
 
-
-        Tone.context.resume().then(() => {
-            Tone.Transport.start();
-            console.log(Tone.context.state);
-        })
+        if (Tone.context.state !== 'running') {
+            Tone.context.resume().then(() => {
+                Tone.Transport.start();
+                console.log(Tone.context.state);
+            })
+        }
         // checkAudContextInterval
     } else {
         playStopBtn.className = 'play';
@@ -197,6 +198,7 @@ Tone.context.addEventListener("statechange", (ev) => {
     if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
         Tone.context.resume();
         console.log(Tone.context.state);
+        pressPlay()
     }
 
 }, false);
@@ -204,4 +206,4 @@ Tone.context.addEventListener("statechange", (ev) => {
 // I put the above in the audio ctx onstatechange handler
 
 
-console.log('1349');
+console.log('1400');
