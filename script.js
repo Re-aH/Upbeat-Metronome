@@ -1,44 +1,5 @@
 'use strict'
 
-// https://stackoverflow.com/questions/9709891/prevent-ios-mobile-safari-from-going-idle-auto-locking-sleeping/71316630#71316630
-
-// unlock audio context
-const ctx = new (window.AudioContext || window.webkitAudioContext)();
-
-// create silent sound
-let bufferSize = 2 * ctx.sampleRate,
-    emptyBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate),
-    output = emptyBuffer.getChannelData(0);
-
-// fill buffer
-for (let i = 0; i < bufferSize; i++)
-    output[i] = 0;
-
-// create source node
-let source = ctx.createBufferSource();
-source.buffer = emptyBuffer;
-source.loop = true;
-
-// create destination node
-let node = ctx.createMediaStreamDestination();
-source.connect(node);
-
-// dummy audio element
-let audio = document.createElement("audio");
-audio.style.display = "none";
-document.body.appendChild(audio);
-
-// set source and play
-audio.srcObject = node.stream;
-audio.play();
-
-// background exec enabled
-
-console.log('126');
-
-
-//from here is ok...
-
 let bpm = 60
 updateToneBpm()
 const bpmTopLimit = 300
@@ -230,5 +191,14 @@ tempoDownBtn.addEventListener('touchend', clearTempoDown);
 //     }
 // }, 1000);
 
+//will it?
+Tone.context.addEventListener("statechange", (ev) => {
+    console.log(Tone.context.state);
+    if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
+        Tone.context.resume();
+        console.log(Tone.context.state);
+    }
 
+}, false);
 
+  // I put the above in the audio ctx onstatechange handler
