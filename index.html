@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A FREE online metronome with a pendulum that goes up and down, to help the player to better visualize an up-beat and a down-beat."
+    />
     <link rel="icon" type="image/x-icon" href="images/favicon1-32x32.png" />
     <title>Upbeat Metronome</title>
     <script
@@ -25,41 +29,41 @@
   <body>
     <div class="pendulum">
       <div id="dot" class="circle"></div>
-      <div class="whiteCup"></div>
-      <div class="whiteCdn"></div>
       <div class="bigC"></div>
     </div>
     <div class="controls">
-      <div class="tempo-display">
+      <div
+        onclick="decreaseTempo()"
+        onmousedown="tempoDown()"
+        onmouseup="clearTempoDown()"
+        onmouseout="clearTempoDown()"
+        class="tempo-btn upDown"
+        id="tempoDown"
+      >
+        -
+      </div>
+      <div class="wrapper">
+        <div class="tempo-display">
+          <div>
+            <p class="bpmDisplay">60</p>
+          </div>
+        </div>
+
         <div>
-          <p class="bpmDisplay">60</p>
+          <div id="onOff" class="play"></div>
+
+          <!-- <button id="onOff"></button> -->
         </div>
       </div>
-      <div class="upDown">
-        <div
-          onclick="increaseTempo()"
-          onmousedown="tempoUp()"
-          onmouseup="clearTempoUp()"
-          onmouseout="clearTempoUp()"
-          class="tempo-btn"
-          id="tempoUp"
-        >
-          +
-        </div>
-        <div
-          onclick="decreaseTempo()"
-          onmousedown="tempoDown()"
-          onmouseup="clearTempoDown()"
-          onmouseout="clearTempoDown()"
-          class="tempo-btn"
-          id="tempoDown"
-        >
-          -
-        </div>
-      </div>
-      <div class="space"></div>
-      <div id="onOff" class="play">
-        <!-- <button id="onOff"></button> -->
+      <div
+        onclick="increaseTempo()"
+        onmousedown="tempoUp()"
+        onmouseup="clearTempoUp()"
+        onmouseout="clearTempoUp()"
+        class="tempo-btn upDown"
+        id="tempoUp"
+      >
+        +
       </div>
     </div>
     <script src="Tone.min.js"></script>

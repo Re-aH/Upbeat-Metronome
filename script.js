@@ -3,7 +3,7 @@
 let bpm = 60
 updateToneBpm()
 const bpmTopLimit = 300
-const bpmBottomLimit = 20
+const bpmBottomLimit = 35
 let bpmDisplay = document.querySelector(".bpmDisplay").innerText
 const tempoUpBtn = document.getElementById("tempoUp")
 const tempoDownBtn = document.getElementById("tempoDown")
@@ -42,35 +42,22 @@ playStopBtn.addEventListener('click', function () {
     updateAnimationTempo()
 })
 
-function animateUpbeat() {
-    document.querySelector('.whiteCup').classList.add('animWhite');
-}
+
 
 const pressPlay = function () {
     // toggle Play / Stop
-    let secBpm2 = 60000 / bpm / 2
     if (playStopBtn.className === 'play') {
         playStopBtn.className = 'stop';
         dot.classList.add('animation');
         document.querySelector('.bigC').classList.add('animCircle');
-        document.querySelector('.whiteCdn').classList.add('animWhite');
-        // uncomenting this will animate a white ball to the off beat
-        // not sure if it is a good idea...
-        // setTimeout(animateUpbeat, secBpm2)
-
-        if (Tone.context.state !== 'running') {
-            Tone.context.resume().then(() => {
-                Tone.Transport.start();
-                console.log(Tone.context.state);
-            })
-        }
-        // checkAudContextInterval
+        Tone.context.resume().then(() => {
+            Tone.Transport.start();
+        })
+        checkAudContextInterval
     } else {
         playStopBtn.className = 'play';
         dot.classList.remove('animation');
         document.querySelector('.bigC').classList.remove('animCircle');
-        document.querySelector('.whiteCdn').classList.remove('animWhite');
-        document.querySelector('.whiteCup').classList.remove('animWhite');
         Tone.Transport.stop();
     }
 
@@ -86,8 +73,6 @@ function updateToneBpm() {
 function updateAnimationTempo() {
     let secBpm = 60 / bpm / 2
     document.querySelector('.bigC').style.animationDuration = `${secBpm * 2}s`
-    document.querySelector('.whiteCdn').style.animationDuration = `${secBpm * 2}s`
-    document.querySelector('.whiteCup').style.animationDuration = `${secBpm * 2}s`
     dot.style.animationDuration = `${secBpm}s`
 }
 
@@ -115,35 +100,9 @@ function tempoUp() {
         , 1000)
 }
 
-const syncClick = function () {
-    // toggle Play / Stop
-    // let secBpm2 = 60000 / bpm / 2
-    if (playStopBtn.className === 'stop') {
-        dot.classList.remove('animation');
-        document.querySelector('.whiteCdn').classList.remove('animWhite');
-        document.querySelector('.bigC').classList.remove('animCircle');
-        Tone.Transport.stop();
-        setTimeout(function () {
-
-            Tone.Transport.start();
-
-            // checkAudContextInterval
-            dot.classList.add('animation');
-            document.querySelector('.bigC').classList.add('animCircle');
-            document.querySelector('.whiteCdn').classList.add('animWhite');
-            // uncomenting this will animate a white ball to the off beat
-            // not sure if it is a good idea...
-            // setTimeout(animateUpbeat, secBpm2)
-        }, 50)
-
-    }
-
-}
-
 function clearTempoUp() {
     clearTimeout(longPress)
     clearInterval(longPressUp)
-    syncClick()
 }
 
 let longPress2;
@@ -163,7 +122,6 @@ function tempoDown() {
 function clearTempoDown() {
     clearTimeout(longPress2);
     clearInterval(longPressDown);
-    syncClick()
 };
 
 
@@ -177,33 +135,14 @@ tempoDownBtn.addEventListener('touchend', clearTempoDown);
 
 // console.log(Tone.context._context);
 
-// var checkAudContextInterval = setInterval(function () {
-
-//     if (typeof Tone.getAudioContext !== 'undefined') {
-//         Tone.getAudioContext().onstatechange = function () {
-//             console.log(Tone.getAudioContext().state);
-//             if (Tone.getAudioContext().state === 'suspended' || Tone.getAudioContext().state === 'interrupted') {
-//                 Tone.getAudioContext().resume();
-//             }
-
-//         };
-
-//         clearInterval(checkAudContextInterval);
-//     }
-// }, 1000);
-
-//will it?
-Tone.context.addEventListener("statechange", (ev) => {
-    console.log(Tone.context.state);
-    if (Tone.context.state === 'suspended' || Tone.context.state === 'interrupted') {
-        Tone.context.resume();
-        console.log(Tone.context.state);
-        pressPlay()
+var checkAudContextInterval = setInterval(function () {
+    if (typeof getAudioContext !== 'undefined') {
+        getAudioContext().onstatechange = function () {
+            // console.log(getAudioContext().state);
+            if (getAudioContext().state === 'suspended' || getAudioContext().state === 'interrupted') {
+                getAudioContext().resume();
+            }
+        };
+        clearInterval(checkAudContextInterval);
     }
-
-}, false);
-
-// I put the above in the audio ctx onstatechange handler
-
-
-console.log('1400');
+}, 1000);

@@ -8,28 +8,19 @@ $backGroundColor: rgb(188, 235, 241);
   margin-right: auto;
 }
 
-@mixin circleNoBorderBottom() {
-  border-radius: 100%;
-  height: 0px;
-  width: 0px;
-  position: fixed;
-  @include center();
-}
-
 @keyframes bounce {
   0% {
     bottom: 110px;
+    border-color: rgb(255, 255, 255);
   }
-  //   border-color: rgb(255, 255, 255);
-  // }
 
-  // 10% {
-  //   border-color: rgb(255, 255, 255);
-  // }
+  10% {
+    border-color: rgb(255, 255, 255);
+  }
 
-  // 30% {
-  //   border-color: $textColor;
-  // }
+  30% {
+    border-color: $textColor;
+  }
   100% {
     bottom: 88%;
   }
@@ -40,15 +31,6 @@ $backGroundColor: rgb(188, 235, 241);
     opacity: 20%;
   }
   100% {
-    opacity: 0%;
-  }
-}
-
-@keyframes whiteLight {
-  0% {
-    opacity: 100%;
-  }
-  40% {
     opacity: 0%;
   }
 }
@@ -80,20 +62,12 @@ div {
   // border-bottom: 5px solid black;
   .circle {
     border: 36px solid $textColor;
-    @include circleNoBorderBottom();
+    border-radius: 100%;
+    height: 0px;
+    width: 0px;
+    position: fixed;
+    @include center();
     bottom: 110px;
-  }
-  .whiteCdn {
-    border: 36px solid white;
-    @include circleNoBorderBottom();
-    bottom: 110px;
-    opacity: 0%;
-  }
-  .whiteCup {
-    border: 36px solid white;
-    @include circleNoBorderBottom();
-    bottom: 88%;
-    opacity: 0%;
   }
 }
 
@@ -135,59 +109,55 @@ div {
   // animation-timing-function: linear;
 }
 
-.animWhite {
-  animation-name: whiteLight;
-  animation-duration: 0.5s;
-  animation-iteration-count: infinite;
-}
-
 .controls {
-  position: fixed;
-  bottom: 15px;
+  position: absolute;
+  bottom: -10px;
   height: 15vh;
-  display: block;
+  display: flex;
   margin: 0 auto;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
   //   border-color: $textColor;
   //   border-style: solid;
   //   border-width: 2px;
 
   .tempo-display {
     display: inline-block;
-    position: fixed;
+    // position: absolute;
     font-family: Arial, Helvetica, sans-serif;
     width: 105px;
-    bottom: 25px;
-    font-size: 4.5rem;
+    // bottom: 15px;
+    font-size: 4rem;
     // margin-left: px;
-    // margin-right: 10px;
+    margin-right: 10px;
     text-align: right;
     color: $textColor;
   }
 }
 
 #tempoUp {
-  bottom: 50px;
+  // bottom: 50px;
 }
 
 #tempoDown {
-  bottom: 19px;
+  // bottom: 19px;
 }
 .tempo-btn {
-  position: fixed;
+  // position: absolute;
   display: inline-block;
   font-family: "Courier New", Courier, monospace;
-  height: 35px;
-  width: 40px;
-  font-weight: 550;
-  font-size: 3.6rem;
+  height: 60px;
+  width: 100px;
+  font-weight: 800;
+  font-size: 2.4rem;
   color: $textColor;
   background-color: $backGroundColor;
   border: none;
-  left: 130px;
+  // left: 106px;
   text-align: center;
-  vertical-align: middle;
-  line-height: 15px;
-  padding-bottom: 4px;
+  // vertical-align: middle;
+  line-height: 30px;
 }
 
 .play {
@@ -195,19 +165,25 @@ div {
   border-left: 55px solid $textColor;
   border-top: 25px solid transparent;
   border-bottom: 25px solid transparent;
-  right: 15px;
+  // right: 15px;
+  // width: 50px;
 }
 
 .stop {
   // display: inline-block;
   border: 25px solid $textColor;
-  right: 20px;
+  // width: 50px;
 }
 
 #onOff {
-  position: fixed;
+  // position: fixed;
   display: inline-block;
-  bottom: 43px;
-  width: 0px;
-  height: 0px;
+  // bottom: 43px;
+  // width: 0px;
+  // height: 0px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
 }
