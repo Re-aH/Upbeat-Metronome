@@ -11,15 +11,6 @@ $backGroundColor: rgb(188, 235, 241);
 @keyframes bounce {
   0% {
     bottom: 110px;
-    border-color: rgb(255, 255, 255);
-  }
-
-  10% {
-    border-color: rgb(255, 255, 255);
-  }
-
-  30% {
-    border-color: $textColor;
   }
   100% {
     bottom: 88%;
@@ -34,10 +25,22 @@ $backGroundColor: rgb(188, 235, 241);
     opacity: 0%;
   }
 }
+@keyframes whiteLight {
+  0% {
+    opacity: 100%;
+  }
+  40% {
+    opacity: 0%;
+  }
+}
 
 body {
   background-color: $backGroundColor;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
+  touch-action: manipulation;
 }
 
 p {
@@ -109,6 +112,12 @@ div {
   // animation-timing-function: linear;
 }
 
+.animWhite {
+  animation-name: whiteLight;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
 .controls {
   position: absolute;
   bottom: -10px;
@@ -130,34 +139,29 @@ div {
     // bottom: 15px;
     font-size: 4rem;
     // margin-left: px;
-    margin-right: 10px;
+    margin-right: 20px;
     text-align: right;
     color: $textColor;
   }
 }
 
-#tempoUp {
-  // bottom: 50px;
-}
-
-#tempoDown {
-  // bottom: 19px;
-}
 .tempo-btn {
-  // position: absolute;
-  display: inline-block;
+  // position: fixed;
+  display: flex;
   font-family: "Courier New", Courier, monospace;
-  height: 60px;
-  width: 100px;
+  height: 100%;
+  width: 12%;
   font-weight: 800;
   font-size: 3rem;
   color: $textColor;
   background-color: $backGroundColor;
   border: none;
   // left: 106px;
-  text-align: center;
+  // text-align: center;
   // vertical-align: middle;
   line-height: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
 .play {
@@ -186,4 +190,39 @@ div {
 .wrapper {
   display: flex;
   align-items: center;
+}
+
+.pendulum .whiteCdn {
+  border: 36px solid white;
+  border-radius: 100%;
+  height: 0px;
+  width: 0px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 110px;
+  opacity: 0%;
+}
+.pendulum .whiteCup {
+  border: 36px solid white;
+  border-radius: 100%;
+  height: 0px;
+  width: 0px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 88%;
+  opacity: 0%;
+}
+.animCircle {
+  -webkit-animation-name: circleLight;
+  animation-name: circleLight;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 }

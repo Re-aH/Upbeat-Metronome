@@ -1,13 +1,6 @@
 @-webkit-keyframes bounce {
   0% {
     bottom: 110px;
-    border-color: rgb(255, 255, 255);
-  }
-  10% {
-    border-color: rgb(255, 255, 255);
-  }
-  30% {
-    border-color: rgb(0, 0, 0);
   }
   100% {
     bottom: 88%;
@@ -16,13 +9,6 @@
 @keyframes bounce {
   0% {
     bottom: 110px;
-    border-color: rgb(255, 255, 255);
-  }
-  10% {
-    border-color: rgb(255, 255, 255);
-  }
-  30% {
-    border-color: rgb(0, 0, 0);
   }
   100% {
     bottom: 88%;
@@ -44,12 +30,29 @@
     opacity: 0%;
   }
 }
+@-webkit-keyframes whiteLight {
+  0% {
+    opacity: 100%;
+  }
+  40% {
+    opacity: 0%;
+  }
+}
+@keyframes whiteLight {
+  0% {
+    opacity: 100%;
+  }
+  40% {
+    opacity: 0%;
+  }
+}
 body {
   background-color: rgb(188, 235, 241);
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 p {
@@ -130,6 +133,15 @@ div {
           animation-direction: alternate;
 }
 
+.animWhite {
+  -webkit-animation-name: whiteLight;
+          animation-name: whiteLight;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
 .controls {
   position: absolute;
   bottom: -10px;
@@ -145,23 +157,24 @@ div {
   font-family: Arial, Helvetica, sans-serif;
   width: 105px;
   font-size: 4rem;
-  margin-right: 10px;
+  margin-right: 20px;
   text-align: right;
   color: rgb(0, 0, 0);
 }
 
 .tempo-btn {
-  display: inline-block;
+  display: flex;
   font-family: "Courier New", Courier, monospace;
-  height: 60px;
-  width: 100px;
+  height: 100%;
+  width: 12%;
   font-weight: 800;
   font-size: 3rem;
   color: rgb(0, 0, 0);
   background-color: rgb(188, 235, 241);
   border: none;
-  text-align: center;
   line-height: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
 .play {
@@ -181,4 +194,41 @@ div {
 .wrapper {
   display: flex;
   align-items: center;
+}
+
+.pendulum .whiteCdn {
+  border: 36px solid white;
+  border-radius: 100%;
+  height: 0px;
+  width: 0px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 110px;
+  opacity: 0%;
+}
+
+.pendulum .whiteCup {
+  border: 36px solid white;
+  border-radius: 100%;
+  height: 0px;
+  width: 0px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 88%;
+  opacity: 0%;
+}
+
+.animCircle {
+  -webkit-animation-name: circleLight;
+  animation-name: circleLight;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
 }/*# sourceMappingURL=style.css.map */
