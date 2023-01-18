@@ -179,3 +179,12 @@ var checkAudContextInterval = setInterval(function () {
         clearInterval(checkAudContextInterval);
     }
 }, 1000);
+
+
+document.body.addEventListener("keydown", function (event) {
+    if (event.key === " ") {
+        // Spacebar was pressed
+        pressPlay()
+        updateAnimationTempo()
+    }
+});
