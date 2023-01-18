@@ -187,4 +187,13 @@ document.body.addEventListener("keydown", function (event) {
         pressPlay()
         updateAnimationTempo()
     }
+
+    if (event.key === "ArrowUp") {
+        increaseTempo()
+    }
+
+    if (event.key === "ArrowDown") {
+        decreaseTempo()
+    }
+
 });

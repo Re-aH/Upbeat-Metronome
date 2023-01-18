@@ -119,7 +119,7 @@ div {
 }
 
 .controls {
-  position: absolute;
+  position: fixed;
   bottom: -10px;
   height: 15vh;
   display: flex;
@@ -142,6 +142,7 @@ div {
     margin-right: 20px;
     text-align: right;
     color: $textColor;
+    // padding-right: 10px;
   }
 }
 
@@ -182,6 +183,7 @@ div {
 #onOff {
   // position: fixed;
   display: inline-block;
+  // padding-right: 10px;
   // bottom: 43px;
   // width: 0px;
   // height: 0px;
@@ -190,6 +192,8 @@ div {
 .wrapper {
   display: flex;
   align-items: center;
+  width: fit-content;
+  justify-content: space-between;
 }
 
 .pendulum .whiteCdn {
