@@ -10,7 +10,7 @@ $backGroundColor: rgb(188, 235, 241);
 
 @keyframes bounce {
   0% {
-    bottom: 110px;
+    bottom: 85px;
   }
   100% {
     bottom: 88%;
@@ -55,7 +55,7 @@ div {
 .pendulum {
   background-color: rgb(35, 184, 184);
   position: fixed;
-  bottom: 135px;
+  bottom: 100px;
   top: 0px;
   left: 0px;
   right: 0px;
@@ -64,19 +64,19 @@ div {
   border-bottom: 2px solid $textColor;
   // border-bottom: 5px solid black;
   .circle {
-    border: 36px solid $textColor;
+    border: 30px solid $textColor;
     border-radius: 100%;
     height: 0px;
     width: 0px;
     position: fixed;
     @include center();
-    bottom: 110px;
+    bottom: 85px;
   }
 }
 
 .pendulum::before {
   content: "";
-  width: 88px;
+  width: 80px;
   height: calc(100% + 5.5px);
   background-color: rgb(35, 184, 184);
   position: absolute;
@@ -86,14 +86,14 @@ div {
 }
 
 .bigC {
-  height: 69px;
-  width: 69px;
+  height: 60px;
+  width: 60px;
   // background-color: white;
   border-radius: 100%;
   border: 3px solid $textColor;
   opacity: 10%;
   position: absolute;
-  bottom: -27px;
+  bottom: -20px;
   @include center();
   // right: 10px;
 }
@@ -120,8 +120,9 @@ div {
 
 .controls {
   position: fixed;
-  bottom: -10px;
-  height: 120px;
+  left: 0px;
+  bottom: -2px;
+  height: 100px;
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -137,10 +138,10 @@ div {
     font-family: Arial, Helvetica, sans-serif;
     width: 105px;
     // bottom: 15px;
-    font-size: 4rem;
+    font-size: 50px;
     // margin-left: px;
-    margin-right: 20px;
-    text-align: right;
+    // margin-right: 10px;
+    text-align: center;
     color: $textColor;
     // padding-right: 10px;
   }
@@ -151,9 +152,9 @@ div {
   display: flex;
   font-family: "Courier New", Courier, monospace;
   height: 100%;
-  width: 12%;
+  width: 120px;
   font-weight: 800;
-  font-size: 3rem;
+  font-size: 50px;
   color: $textColor;
   background-color: $backGroundColor;
   border: none;
@@ -167,7 +168,7 @@ div {
 
 .play {
   // display: inline-block;
-  border-left: 55px solid $textColor;
+  border-left: 50px solid $textColor;
   border-top: 25px solid transparent;
   border-bottom: 25px solid transparent;
   // right: 15px;
@@ -192,12 +193,12 @@ div {
 .wrapper {
   display: flex;
   align-items: center;
-  width: fit-content;
-  justify-content: space-between;
+  width: 180px;
+  justify-content: space-evenly;
 }
 
 .pendulum .whiteCdn {
-  border: 36px solid white;
+  border: 30px solid white;
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -206,11 +207,11 @@ div {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  bottom: 110px;
+  bottom: 85px;
   opacity: 0%;
 }
 .pendulum .whiteCup {
-  border: 36px solid white;
+  border: 30px solid white;
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -219,7 +220,7 @@ div {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  bottom: 88%;
+  bottom: 100px;
   opacity: 0%;
 }
 .animCircle {

@@ -1,25 +1,9 @@
-@-webkit-keyframes bounce {
-  0% {
-    bottom: 110px;
-  }
-  100% {
-    bottom: 88%;
-  }
-}
 @keyframes bounce {
   0% {
-    bottom: 110px;
+    bottom: 85px;
   }
   100% {
     bottom: 88%;
-  }
-}
-@-webkit-keyframes circleLight {
-  0% {
-    opacity: 20%;
-  }
-  100% {
-    opacity: 0%;
   }
 }
 @keyframes circleLight {
@@ -27,14 +11,6 @@
     opacity: 20%;
   }
   100% {
-    opacity: 0%;
-  }
-}
-@-webkit-keyframes whiteLight {
-  0% {
-    opacity: 100%;
-  }
-  40% {
     opacity: 0%;
   }
 }
@@ -50,7 +26,6 @@ body {
   background-color: rgb(188, 235, 241);
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   touch-action: manipulation;
 }
@@ -67,7 +42,7 @@ div {
 .pendulum {
   background-color: rgb(35, 184, 184);
   position: fixed;
-  bottom: 135px;
+  bottom: 100px;
   top: 0px;
   left: 0px;
   right: 0px;
@@ -76,7 +51,7 @@ div {
   border-bottom: 2px solid rgb(0, 0, 0);
 }
 .pendulum .circle {
-  border: 36px solid rgb(0, 0, 0);
+  border: 30px solid rgb(0, 0, 0);
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -85,12 +60,12 @@ div {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  bottom: 110px;
+  bottom: 85px;
 }
 
 .pendulum::before {
   content: "";
-  width: 88px;
+  width: 80px;
   height: calc(100% + 5.5px);
   background-color: rgb(35, 184, 184);
   position: absolute;
@@ -100,13 +75,13 @@ div {
 }
 
 .bigC {
-  height: 69px;
-  width: 69px;
+  height: 60px;
+  width: 60px;
   border-radius: 100%;
   border: 3px solid rgb(0, 0, 0);
   opacity: 10%;
   position: absolute;
-  bottom: -27px;
+  bottom: -20px;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -114,38 +89,29 @@ div {
 }
 
 .animCircle {
-  -webkit-animation-name: circleLight;
-          animation-name: circleLight;
-  -webkit-animation-duration: 0.5s;
-          animation-duration: 0.5s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
+  animation-name: circleLight;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
 }
 
 .animation {
-  -webkit-animation-name: bounce;
-          animation-name: bounce;
-  -webkit-animation-duration: 0.5s;
-          animation-duration: 0.5s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-direction: alternate;
-          animation-direction: alternate;
+  animation-name: bounce;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 .animWhite {
-  -webkit-animation-name: whiteLight;
-          animation-name: whiteLight;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
+  animation-name: whiteLight;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }
 
 .controls {
   position: fixed;
-  bottom: -10px;
-  height: 120px;
+  left: 0px;
+  bottom: -2px;
+  height: 100px;
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -156,9 +122,8 @@ div {
   display: inline-block;
   font-family: Arial, Helvetica, sans-serif;
   width: 105px;
-  font-size: 4rem;
-  margin-right: 20px;
-  text-align: right;
+  font-size: 50px;
+  text-align: center;
   color: rgb(0, 0, 0);
 }
 
@@ -166,9 +131,9 @@ div {
   display: flex;
   font-family: "Courier New", Courier, monospace;
   height: 100%;
-  width: 12%;
+  width: 120px;
   font-weight: 800;
-  font-size: 3rem;
+  font-size: 50px;
   color: rgb(0, 0, 0);
   background-color: rgb(188, 235, 241);
   border: none;
@@ -178,7 +143,7 @@ div {
 }
 
 .play {
-  border-left: 55px solid rgb(0, 0, 0);
+  border-left: 50px solid rgb(0, 0, 0);
   border-top: 25px solid transparent;
   border-bottom: 25px solid transparent;
 }
@@ -194,14 +159,12 @@ div {
 .wrapper {
   display: flex;
   align-items: center;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  justify-content: space-between;
+  width: 180px;
+  justify-content: space-evenly;
 }
 
 .pendulum .whiteCdn {
-  border: 36px solid white;
+  border: 30px solid white;
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -210,12 +173,12 @@ div {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  bottom: 110px;
+  bottom: 85px;
   opacity: 0%;
 }
 
 .pendulum .whiteCup {
-  border: 36px solid white;
+  border: 30px solid white;
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -224,15 +187,12 @@ div {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  bottom: 88%;
+  bottom: 100px;
   opacity: 0%;
 }
 
 .animCircle {
-  -webkit-animation-name: circleLight;
   animation-name: circleLight;
-  -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
-  -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }/*# sourceMappingURL=style.css.map */

@@ -3,7 +3,7 @@
 let bpm = 60
 updateToneBpm()
 const bpmTopLimit = 300
-const bpmBottomLimit = 35
+const bpmBottomLimit = 20
 let bpmDisplay = document.querySelector(".bpmDisplay").innerText
 const tempoUpBtn = document.getElementById("tempoUp")
 const tempoDownBtn = document.getElementById("tempoDown")
@@ -25,9 +25,27 @@ const increaseTempo = function () {
     updateAnimationTempo()
 }
 
+const increaseTempoLongPress = function () {
+    if (!(bpm < bpmTopLimit - 5)) return
+    bpm = Math.round(bpm / 5) * 5
+    bpm = bpm + 5
+    updateDisplay()
+    updateToneBpm()
+    updateAnimationTempo()
+}
+
 const decreaseTempo = function () {
     if (!(bpm > bpmBottomLimit)) return
     bpm--
+    updateDisplay()
+    updateToneBpm()
+    updateAnimationTempo()
+}
+
+const decreaseTempoLongPress = function () {
+    if (!(bpm > bpmBottomLimit + 5)) return
+    bpm = Math.round(bpm / 5) * 5;
+    bpm = bpm - 5
     updateDisplay()
     updateToneBpm()
     updateAnimationTempo()
@@ -102,11 +120,12 @@ function tempoUp() {
     longPress = setTimeout(
 
         function () {
+
             // alert("test")
             longPressUp = setInterval(
-                function () { increaseTempo() }, 50)
+                function () { increaseTempoLongPress() }, 120)
         }
-        , 1000)
+        , 500)
 }
 
 const syncClick = function () {
@@ -146,9 +165,9 @@ function tempoDown() {
         function () {
             // alert("test")
             longPressDown = setInterval(
-                function () { decreaseTempo() }, 50);
+                function () { decreaseTempoLongPress() }, 120);
         }
-        , 1000);
+        , 500);
 };
 
 function clearTempoDown() {
