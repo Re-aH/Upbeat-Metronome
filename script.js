@@ -8,7 +8,7 @@ let bpmDisplay = document.querySelector(".bpmDisplay").innerText
 const tempoUpBtn = document.getElementById("tempoUp")
 const tempoDownBtn = document.getElementById("tempoDown")
 const playStopBtn = document.getElementById("onOff")
-const dot = document.getElementById("dot")
+// const dot = document.getElementById("dot")
 const metClick = new Tone.Player('click3.wav').toMaster();
 
 
@@ -22,7 +22,7 @@ const increaseTempo = function () {
     bpm++
     updateDisplay()
     updateToneBpm()
-    updateAnimationTempo()
+
 }
 
 const increaseTempoLongPress = function () {
@@ -31,7 +31,7 @@ const increaseTempoLongPress = function () {
     bpm = bpm + 5
     updateDisplay()
     updateToneBpm()
-    updateAnimationTempo()
+
 }
 
 const decreaseTempo = function () {
@@ -39,7 +39,7 @@ const decreaseTempo = function () {
     bpm--
     updateDisplay()
     updateToneBpm()
-    updateAnimationTempo()
+
 }
 
 const decreaseTempoLongPress = function () {
@@ -48,16 +48,14 @@ const decreaseTempoLongPress = function () {
     bpm = bpm - 5
     updateDisplay()
     updateToneBpm()
-    updateAnimationTempo()
+
 }
 
-// const togglePlayStop = function () {
 
-// }
 
 playStopBtn.addEventListener('click', function () {
     pressPlay()
-    updateAnimationTempo()
+
 })
 
 
@@ -66,12 +64,6 @@ const pressPlay = function () {
     // toggle Play / Stop
     if (playStopBtn.className === 'play') {
         playStopBtn.className = 'stop';
-        dot.classList.add('animation');
-        document.querySelector('.bigC').classList.add('animCircle');
-        document.querySelector(".whiteCdn").classList.add("animWhite");
-
-
-
 
 
         Tone.context.resume().then(() => {
@@ -80,9 +72,6 @@ const pressPlay = function () {
         checkAudContextInterval
     } else {
         playStopBtn.className = 'play';
-        dot.classList.remove('animation');
-        document.querySelector('.bigC').classList.remove('animCircle');
-        document.querySelector(".whiteCdn").classList.remove("animWhite");
         Tone.Transport.stop();
     }
 
@@ -95,20 +84,15 @@ function updateToneBpm() {
 }
 
 
-function updateAnimationTempo() {
-    let secBpm = 60 / bpm / 2
-    document.querySelector('.bigC').style.animationDuration = `${secBpm * 2}s`;
-    dot.style.animationDuration = `${secBpm}s`;
-    document.querySelector(".whiteCdn").style.animationDuration = `${secBpm * 2
-        }s`;
-}
 
 
 
-// repeated event every 4th note
+
+// repeated event every Quarter note
 Tone.Transport.scheduleRepeat((time) => {
 
     metClick.start(time)
+    animateDiv(bpm)
 
 }, "4n");
 
@@ -121,39 +105,17 @@ function tempoUp() {
 
         function () {
 
-            // alert("test")
             longPressUp = setInterval(
                 function () { increaseTempoLongPress() }, 120)
         }
         , 500)
 }
 
-const syncClick = function () {
-    // toggle Play / Stop
-    // let secBpm2 = 60000 / bpm / 2
-    if (playStopBtn.className === "stop") {
-        dot.classList.remove("animation");
-        document.querySelector(".whiteCdn").classList.remove("animWhite");
-        document.querySelector(".bigC").classList.remove("animCircle");
-        Tone.Transport.stop();
-        setTimeout(function () {
-            Tone.Transport.start();
-
-            checkAudContextInterval;
-            dot.classList.add("animation");
-            document.querySelector(".bigC").classList.add("animCircle");
-            document.querySelector(".whiteCdn").classList.add("animWhite");
-            // uncomenting this will animate a white ball to the off beat
-            // not sure if it is a good idea...
-            // setTimeout(animateUpbeat, secBpm2)
-        }, 500);
-    }
-};
 
 function clearTempoUp() {
     clearTimeout(longPress)
     clearInterval(longPressUp)
-    syncClick();
+
 }
 
 let longPress2;
@@ -163,7 +125,7 @@ function tempoDown() {
     longPress2 = setTimeout(
 
         function () {
-            // alert("test")
+
             longPressDown = setInterval(
                 function () { decreaseTempoLongPress() }, 120);
         }
@@ -173,7 +135,7 @@ function tempoDown() {
 function clearTempoDown() {
     clearTimeout(longPress2);
     clearInterval(longPressDown);
-    syncClick();
+
 };
 
 
@@ -204,7 +166,7 @@ document.body.addEventListener("keydown", function (event) {
     if (event.key === " ") {
         // Spacebar was pressed
         pressPlay()
-        updateAnimationTempo()
+
     }
 
     if (event.key === "ArrowUp") {
@@ -216,3 +178,46 @@ document.body.addEventListener("keydown", function (event) {
     }
 
 });
+
+
+
+
+
+function animateDiv(bpm) {
+    const div = document.getElementById('myDot');
+    const start = 0;
+    const end = window.innerHeight * 0.82;
+    const duration = 1000 / bpm * 60;
+    const easing = function (t) { return 0.5 - 0.5 * Math.cos(Math.PI * t) }; // Sin easing in/out function
+    let startTime = Date.now();
+    const whiteCdn = document.querySelector(".whiteCdn")
+    const bigC = document.querySelector('.bigC')
+
+    function animate() {
+        const elapsedTime = Date.now() - startTime;
+        if (elapsedTime < duration) {
+            let whiteCdnOpacity
+            let position;
+            if (elapsedTime < duration / 2) {
+                position = start + (end - start) * easing(elapsedTime / (duration / 2));
+                whiteCdnOpacity = 1 - easing(elapsedTime / (duration / 2));
+            } else {
+                position = end + (start - end) * easing((elapsedTime - duration / 2) / (duration / 2));
+                whiteCdnOpacity = 0
+            }
+            whiteCdn.style.opacity = whiteCdnOpacity
+            bigC.style.opacity = whiteCdnOpacity / 1.7
+            div.style.transform = `translateY(${-Math.round(position)}px)`;
+            requestAnimationFrame(animate);
+        } else {
+            div.style.transform = `translateY(${start}px)`;
+            // startTime = Date.now(); // Reset start time to begin the animation again
+            // requestAnimationFrame(animate); // Start the animation again
+
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+
