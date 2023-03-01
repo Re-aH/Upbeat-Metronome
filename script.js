@@ -186,7 +186,7 @@ document.body.addEventListener("keydown", function (event) {
 function animateDiv(bpm) {
     const div = document.getElementById('myDot');
     const start = 0;
-    const end = window.innerHeight * 0.78;
+    const end = window.innerHeight * 0.75;
     const duration = 1000 / bpm * 60;
     const easing = function (t) { return 0.5 - 0.5 * Math.cos(Math.PI * t) }; // Sin easing in/out function
     let startTime = Date.now();
