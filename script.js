@@ -1,6 +1,6 @@
 'use strict'
 
-let bpm = 60
+let bpm = localStorage.getItem("localBpm") || 60
 updateToneBpm()
 const bpmTopLimit = 300
 const bpmBottomLimit = 20
@@ -15,7 +15,10 @@ const metClick = new Tone.Player('click3.wav').toMaster();
 
 const updateDisplay = function () {
     document.querySelector(".bpmDisplay").innerText = bpm
+    localStorage.setItem("localBpm", bpm)
 }
+
+updateDisplay()
 
 const increaseTempo = function () {
     if (!(bpm < bpmTopLimit)) return
@@ -186,31 +189,42 @@ document.body.addEventListener("keydown", function (event) {
 function animateDiv(bpm) {
     const div = document.getElementById('myDot');
     const start = 0;
-    const end = window.innerHeight * 0.75;
+    const end = window.innerHeight - 160;
     const duration = 1000 / bpm * 60;
-    const easing = function (t) { return 0.5 - 0.5 * Math.cos(Math.PI * t) }; // Sin easing in/out function
+    // Sine easing in/out function
+    const easing = function (t) { return (0.5 - 0.5 * Math.cos(Math.PI * t)) * 1 };
     let startTime = Date.now();
     const whiteCdn = document.querySelector(".whiteCdn")
     const bigC = document.querySelector('.bigC')
 
     function animate() {
         const elapsedTime = Date.now() - startTime;
+
         if (elapsedTime < duration) {
             let whiteCdnOpacity
             let position;
+            // whiteCdnOpacity = 1 - (elapsedTime / duration);
             if (elapsedTime < duration / 2) {
                 position = start + (end - start) * easing(elapsedTime / (duration / 2));
-                whiteCdnOpacity = 1 - easing(elapsedTime / (duration / 2));
+                whiteCdnOpacity = 1 - (elapsedTime / duration * 2);
+                // console.log(elapsedTime / duration * 2);
             } else {
                 position = end + (start - end) * easing((elapsedTime - duration / 2) / (duration / 2));
                 whiteCdnOpacity = 0
             }
+            // this creates a slight fade in to the white ball 
+            // if (elapsedTime > duration * 0.9) {
+            //     whiteCdnOpacity = (elapsedTime * 10 / (duration)) - 9
+            //     // console.log((elapsedTime * 10 / (duration)) - 9);
+            // }
             whiteCdn.style.opacity = whiteCdnOpacity
             bigC.style.opacity = whiteCdnOpacity / 1.7
             div.style.transform = `translateY(${-Math.round(position)}px)`;
             requestAnimationFrame(animate);
         } else {
             div.style.transform = `translateY(${start}px)`;
+            whiteCdn.style.opacity = 0
+            bigC.style.opacity = 0
             // startTime = Date.now(); // Reset start time to begin the animation again
             // requestAnimationFrame(animate); // Start the animation again
 
