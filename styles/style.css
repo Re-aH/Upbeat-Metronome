@@ -6,6 +6,56 @@ body {
   touch-action: manipulation;
 }
 
+body.dark-mode {
+  background-color: #050506;
+  color: #f3f3f3;
+}
+
+body.dark-mode .pendulum {
+  background-color: #101015;
+  border-bottom-color: #f3f3f3;
+}
+
+body.dark-mode .pendulum::before {
+  background-color: #101015;
+}
+
+body.dark-mode .controls {
+  background-color: #101015;
+}
+
+body.dark-mode .controls .tempo-display {
+  color: #f3f3f3;
+}
+
+body.dark-mode .tempo-btn {
+  color: #f3f3f3;
+  background-color: #101015;
+}
+
+body.dark-mode .display-mode-toggle {
+  color: #050506;
+  /* background-color: #f3f3f3; */
+  /* border-color: #f3f3f3; */
+}
+
+body.dark-mode .pendulum .whiteCup,
+body.dark-mode .pendulum .whiteCdn {
+  border-color: #f3f3f3;
+}
+
+body.dark-mode .play {
+  border-left-color: #f3f3f3;
+}
+
+body.dark-mode .stop {
+  border-color: #f3f3f3;
+}
+
+body.dark-mode lottie-player {
+  filter: invert(1);
+}
+
 p {
   margin: 0px auto;
 }
@@ -25,6 +75,13 @@ div {
   width: 100%;
   z-index: 150;
   border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+body.basketball-mode .pendulum {
+  background: url("../images/court.png") center center / cover no-repeat;
+}
+.basketball-mode .pendulum::before {
+  background-color: transparent;
 }
 .pendulum .circle {
   border: 30px solid rgb(0, 0, 0);
@@ -50,20 +107,6 @@ div {
   transform: translate(-50%, -50%);
 }
 
-.bigC {
-  height: 60px;
-  width: 60px;
-  border-radius: 100%;
-  border: 3px solid rgb(0, 0, 0);
-  opacity: 10%;
-  position: absolute;
-  bottom: -19px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .controls {
   position: fixed;
   left: 0px;
@@ -74,6 +117,7 @@ div {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  z-index: 80;
 }
 .controls .tempo-display {
   display: inline-block;
@@ -121,7 +165,7 @@ div {
 }
 
 .pendulum .whiteCdn {
-  border: 30px solid white;
+  border: 32px solid rgb(0, 0, 0);
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -135,7 +179,7 @@ div {
 }
 
 .pendulum .whiteCup {
-  border: 30px solid white;
+  border: 32px solid rgb(0, 0, 0);
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -159,4 +203,138 @@ div {
   margin-left: auto;
   margin-right: auto;
   bottom: 85px;
-}/*# sourceMappingURL=style.css.map */
+  transition: box-shadow 0.1s ease-out;
+  background-color: transparent;
+}
+
+body.basketball-mode #myDot {
+  height: 200px;
+  width: 200px;
+  background-color: transparent;
+  background-image: url("../images/basketball.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  bottom: 70px;
+}
+.bpmDisplay {
+  transition: all 0.3s ease;
+}
+
+body.basketball-mode .controls .tempo-display {
+  font-family: "Digital7", monospace;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  background-color: #0b57ff;
+  font-size: 60px;
+  color: #f0ff21;
+  /* text-shadow: 1px 1px 7px #f0ff21; */
+  /* -webkit-text-stroke: 1px rgb(129, 126, 119); */
+}
+body.basketball-mode .controls .tempo-btn {
+  font-size: 60px;
+  color: #f0ff21;
+  background-color: #0b57ff;
+  border: none;
+  line-height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+body.basketball-mode .controls {
+  background-color: #0b57ff;
+}
+body.basketball-mode {
+  background-color: #0b57ff;
+}
+
+body.basketball-mode .play {
+  border-left: 50px solid #f0ff21;
+}
+
+body.basketball-mode .stop {
+  border: 25px solid #f0ff21;
+}
+
+#lottie {
+  position: fixed;
+  bottom: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  z-index: 1;
+}
+
+lottie-player {
+  width: 80px;
+  height: 1200px;
+  transform-origin: bottom center;
+  transform: scaleY(var(--scale-factor, 1.25));
+  will-change: transform;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.display-mode-toggle {
+  position: fixed;
+  top: 20px;
+  left: 5px;
+  z-index: 200;
+  /* padding: 10px 14px; */
+  height: 70px;
+  width: 70px;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  /* font-size: 12px; */
+  font-weight: 600;
+
+  background-color: transparent;
+  /* border: 1px solid rgb(0, 0, 0); */
+  /* border-radius: 4px; */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0px;
+  border-radius: 6px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.display-mode-toggle svg g {
+  stroke: #d1d0d0;
+  transition: stroke 0.2s ease;
+  stroke-width: 40px;
+}
+
+/* Target the pupil fill */
+.display-mode-toggle svg circle:last-child {
+  fill: #bebebe36;
+  transition: fill 0.2s ease;
+}
+
+.display-mode-toggle:active {
+  transform: scale(0.97);
+}
+
+#sineCanvasContainer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50px;
+  bottom: 85px;
+  display: none;
+  z-index: 200;
+}
+
+#sineCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/*# sourceMappingURL=style.css.map */
+@font-face {
+  font-family: "Digital7";
+  src: url("../fonts/digital-7.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

@@ -8,32 +8,6 @@ $backGroundColor: rgb(188, 235, 241);
   margin-right: auto;
 }
 
-// @keyframes bounce {
-//   0% {
-//     bottom: 85px;
-//   }
-//   100% {
-//     bottom: 88%;
-//   }
-// }
-
-// @keyframes circleLight {
-//   0% {
-//     opacity: 20%;
-//   }
-//   100% {
-//     opacity: 0%;
-//   }
-// }
-// @keyframes whiteLight {
-//   0% {
-//     opacity: 100%;
-//   }
-//   40% {
-//     opacity: 0%;
-//   }
-// }
-
 body {
   background-color: $backGroundColor;
   -webkit-user-select: none;
@@ -63,8 +37,6 @@ div {
   z-index: 150;
   border-bottom: 2px solid $textColor;
 
-  // border-bottom: 5px solid black;
-
   .circle {
     border: 30px solid $textColor;
     border-radius: 100%;
@@ -87,37 +59,15 @@ div {
   transform: translate(-50%, -50%);
 }
 
-.bigC {
-  height: 60px;
-  width: 60px;
-  // background-color: white;
-  border-radius: 100%;
-  border: 3px solid $textColor;
-  opacity: 10%;
-  position: absolute;
-  bottom: -19px;
-  @include center();
-  // right: 10px;
-}
-
-// .animCircle {
-//   animation-name: circleLight;
-//   animation-duration: 0.5s;
-//   animation-iteration-count: infinite;
-// }
-
-// .animation {
-//   animation-name: bounce;
-//   animation-duration: 0.5s;
-//   animation-iteration-count: infinite;
-//   animation-direction: alternate;
-//   // animation-timing-function: linear;
-// }
-
-// .animWhite {
-//   animation-name: whiteLight;
-//   animation-duration: 1s;
-//   animation-iteration-count: infinite;
+// .bigC {
+//   height: 60px;
+//   width: 60px;
+//   border-radius: 100%;
+//   // border: 3px solid transparent;
+//   opacity: 0%;
+//   position: absolute;
+//   bottom: -19px;
+//   @include center();
 // }
 
 .controls {
@@ -130,27 +80,19 @@ div {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  //   border-color: $textColor;
-  //   border-style: solid;
-  //   border-width: 2px;
+  z-index: 100;
 
   .tempo-display {
     display: inline-block;
-    // position: absolute;
     font-family: Arial, Helvetica, sans-serif;
     width: 105px;
-    // bottom: 15px;
     font-size: 50px;
-    // margin-left: px;
-    // margin-right: 10px;
     text-align: center;
     color: $textColor;
-    // padding-right: 10px;
   }
 }
 
 .tempo-btn {
-  // position: fixed;
   display: flex;
   font-family: "Courier New", Courier, monospace;
   height: 100%;
@@ -160,36 +102,23 @@ div {
   color: $textColor;
   background-color: $backGroundColor;
   border: none;
-  // left: 106px;
-  // text-align: center;
-  // vertical-align: middle;
   line-height: 30px;
   align-items: center;
   justify-content: center;
 }
 
 .play {
-  // display: inline-block;
   border-left: 50px solid $textColor;
   border-top: 25px solid transparent;
   border-bottom: 25px solid transparent;
-  // right: 15px;
-  // width: 50px;
 }
 
 .stop {
-  // display: inline-block;
   border: 25px solid $textColor;
-  // width: 50px;
 }
 
 #onOff {
-  // position: fixed;
   display: inline-block;
-  // padding-right: 10px;
-  // bottom: 43px;
-  // width: 0px;
-  // height: 0px;
 }
 
 .wrapper {
@@ -200,7 +129,7 @@ div {
 }
 
 .pendulum .whiteCdn {
-  border: 30px solid white;
+  border: 32px solid $textColor;
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -213,7 +142,7 @@ div {
   opacity: 0%;
 }
 .pendulum .whiteCup {
-  border: 30px solid white;
+  border: 32px solid $textColor;
   border-radius: 100%;
   height: 0px;
   width: 0px;
@@ -225,17 +154,8 @@ div {
   bottom: 100px;
   opacity: 0%;
 }
-// .animCircle {
-//   -webkit-animation-name: circleLight;
-//   animation-name: circleLight;
-//   -webkit-animation-duration: 0.5s;
-//   animation-duration: 0.5s;
-//   -webkit-animation-iteration-count: infinite;
-//   animation-iteration-count: infinite;
-// }
 
 #myDot {
-  // border: 30px solid "red";
   border-radius: 100%;
   height: 60px;
   width: 60px;
@@ -243,4 +163,42 @@ div {
   position: fixed;
   @include center();
   bottom: 85px;
+  transition: box-shadow 0.1s ease-out;
+  background-color: transparent;
+}
+
+// lottie-player {
+//   position: fixed;
+//   bottom: 150px;
+//   width: 80px; /* Fixed width */
+//   height: auto; /* Maintain aspect ratio */
+//   left: 50%;
+//   transform: translateX(-50%) scaleY(1); /* Keep centered & stretched */
+//   min-width: 80px;
+//   max-width: 80px;
+//   overflow: visible;
+//   border: 2px solid black;
+//   /* Prevent shrinking when the window is resized */
+//   min-height: 200px;
+// }
+
+#lottie {
+  position: fixed;
+  bottom: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  z-index: 1;
+  // border: 2px solid black;
+}
+
+lottie-player {
+  width: 80px;
+  height: 1200px;
+  transform-origin: bottom center;
+  transform: scaleY(var(--scale-factor, 1.25));
+  will-change: transform;
+  overflow: hidden;
+  backface-visibility: hidden;
+  // border: 2px solid black;
 }
