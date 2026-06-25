@@ -11,6 +11,7 @@ const playStopBtn = document.getElementById("onOff")
 // const dot = document.getElementById("dot")
 const metClick = new Tone.Player('click3.wav').toMaster();
 const metBounce = new Tone.Player('basketBallBounce.mp3').toMaster();
+const metSoccerKick = new Tone.Player('soccer.mp3').toMaster();
 const lottiePlayer = document.querySelector('lottie-player');
 const displayModeToggleBtn = document.getElementById("displayModeToggle");
 const sineCanvas = document.getElementById("sineCanvas");
@@ -22,6 +23,7 @@ const displayModes = [
     { id: 'classicDark', label: 'View 3' },
     { id: 'sineDark', label: 'View 4' },
     { id: 'basketball', label: 'View 5' },
+    { id: 'soccer', label: 'View 6' },
 ];
 const savedMode = localStorage.getItem("localDisplayMode");
 let currentModeIndex = savedMode !== null
@@ -36,7 +38,7 @@ let coastingStartTime = 0;
 let coastingT0 = 0;
 let coastingTimeToBottom = 0;
 let coastingBeatDuration = 1;
-let useBounceSound = false;
+let sportSoundMode = null; // null | 'basketball' | 'soccer'
 
 const updateDisplay = function () {
     document.querySelector(".bpmDisplay").innerText = bpm
@@ -121,13 +123,15 @@ function updateToneBpm() {
 // repeated event every Quarter note
 Tone.Transport.scheduleRepeat((time) => {
 
-    if (useBounceSound) {
+    if (sportSoundMode === 'basketball') {
         metBounce.start(time);
+    } else if (sportSoundMode === 'soccer') {
+        metSoccerKick.start(time);
     } else {
         metClick.start(time);
     }
     animateDiv(bpm)
-    if (!useBounceSound) {
+    if (!sportSoundMode) {
         lottiePlayer.setSpeed(bpm / 60)
 
         setTimeout(function () {
@@ -149,28 +153,31 @@ function setDisplayModeByIndex(index) {
         // displayModeToggleBtn.textContent = mode.label;
     }
 
-    const isClassic = mode.id === 'classic' || mode.id === 'classicDark' || mode.id === 'basketball';
+    const isBasketball = mode.id === 'basketball';
+    const isSoccer = mode.id === 'soccer';
+    const isBallSport = isBasketball || isSoccer;
+    const isClassic = mode.id === 'classic' || mode.id === 'classicDark' || isBallSport;
     const isSine = mode.id === 'sine' || mode.id === 'sineDark';
     const isDark = mode.id === 'classicDark' || mode.id === 'sineDark';
-    const isBasketball = mode.id === 'basketball';
 
     document.body.classList.toggle('dark-mode', isDark);
     document.body.classList.toggle('basketball-mode', isBasketball);
+    document.body.classList.toggle('soccer-mode', isSoccer);
 
     const lottieContainer = document.getElementById('lottie');
     const myDot = document.getElementById('myDot');
     const whiteCup = document.querySelector('.whiteCup');
     const whiteCdn = document.querySelector('.whiteCdn');
 
-    if (lottieContainer) lottieContainer.style.display = isClassic && !isBasketball ? 'block' : 'none';
+    if (lottieContainer) lottieContainer.style.display = isClassic && !isBallSport ? 'block' : 'none';
     if (myDot) myDot.style.display = isClassic ? 'block' : 'none';
-    if (whiteCup) whiteCup.style.display = isClassic && !isBasketball ? 'block' : 'none';
-    if (whiteCdn) whiteCdn.style.display = isClassic && !isBasketball ? 'block' : 'none';
+    if (whiteCup) whiteCup.style.display = isClassic && !isBallSport ? 'block' : 'none';
+    if (whiteCdn) whiteCdn.style.display = isClassic && !isBallSport ? 'block' : 'none';
     if (sineCanvasContainer) sineCanvasContainer.style.display = isClassic ? 'none' : 'block';
 
     sineModeActive = isSine;
 
-    useBounceSound = isBasketball;
+    sportSoundMode = isBasketball ? 'basketball' : (isSoccer ? 'soccer' : null);
 
     // Ensure the sine canvas has a real size once it becomes visible
     if (sineModeActive) {
@@ -388,15 +395,16 @@ function animateDiv(bpm) {
     const duration = (60 / bpm) * 1000; // Duration in milliseconds
     let startTime = performance.now();
 
-    const isBasketball = document.body.classList.contains('basketball-mode');
+    const isBallSport = document.body.classList.contains('basketball-mode')
+        || document.body.classList.contains('soccer-mode');
 
-    const whiteCdn = !isBasketball ? document.querySelector(".whiteCdn") : null;
-    const whiteCup = !isBasketball ? document.querySelector(".whiteCup") : null;
-    const myDot = isBasketball ? document.getElementById("myDot") : null;
+    const whiteCdn = !isBallSport ? document.querySelector(".whiteCdn") : null;
+    const whiteCup = !isBallSport ? document.querySelector(".whiteCup") : null;
+    const myDot = isBallSport ? document.getElementById("myDot") : null;
 
     const startBottom = 70;
     let bounceHeight = 140;
-    if (isBasketball && myDot) {
+    if (isBallSport && myDot) {
         const viewportHeight = window.innerHeight;
         const ballHeight = myDot.offsetHeight || 90;
         const targetTop = 70;
@@ -412,12 +420,8 @@ function animateDiv(bpm) {
 
             const progress = elapsedTime / duration;
 
-            if (isBasketball && myDot) {
-                // const t = progress <= 0.5 ? progress * 2 : (1 - progress) * 2;
-                // const offset = bounceHeight * t;
-
+            if (isBallSport && myDot) {
                 const offset = bounceHeight * Math.sin(progress * Math.PI);
-
                 myDot.style.bottom = (startBottom + offset) + "px";
             } else if (whiteCdn) {
                 const whiteCdnOpacity = Math.max(0, 1 - (elapsedTime / duration * 2));
@@ -427,7 +431,7 @@ function animateDiv(bpm) {
 
             requestAnimationFrame(animate);
         } else {
-            if (isBasketball && myDot) {
+            if (isBallSport && myDot) {
                 myDot.style.bottom = startBottom + "px";
             } else if (whiteCdn) {
                 whiteCdn.style.opacity = 0;

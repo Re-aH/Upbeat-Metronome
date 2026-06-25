@@ -255,6 +255,60 @@ body.basketball-mode .stop {
   border: 25px solid #f0ff21;
 }
 
+body.soccer-mode .pendulum {
+  background: url("../images/soccerfield.png") center center / cover no-repeat;
+}
+
+.soccer-mode .pendulum::before {
+  background-color: transparent;
+}
+
+body.soccer-mode #myDot {
+  height: 200px;
+  width: 200px;
+  background-color: transparent;
+  background-image: url("../images/soccerball.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  bottom: 70px;
+}
+
+body.soccer-mode .controls .tempo-display {
+  font-family: "Digital7", monospace;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  background-color: #1a5c2e;
+  font-size: 60px;
+  color: #ffffff;
+}
+
+body.soccer-mode .controls .tempo-btn {
+  font-size: 60px;
+  color: #ffffff;
+  background-color: #1a5c2e;
+  border: none;
+  line-height: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+body.soccer-mode .controls {
+  background-color: #1a5c2e;
+}
+
+body.soccer-mode {
+  background-color: #1a5c2e;
+}
+
+body.soccer-mode .play {
+  border-left: 50px solid #ffffff;
+}
+
+body.soccer-mode .stop {
+  border: 25px solid #ffffff;
+}
+
 #lottie {
   position: fixed;
   bottom: 78px;
